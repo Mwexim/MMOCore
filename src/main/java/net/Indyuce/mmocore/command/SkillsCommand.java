@@ -22,7 +22,7 @@ public class SkillsCommand extends BukkitCommand {
 		if (sender instanceof Player) {
 			PlayerData data = PlayerData.get((Player) sender);
 			if (data.getProfess().getSkills().size() < 1) {
-				MMOCore.plugin.configManager.getSimpleMessage("no-class-skill").send((Player) sender);
+				MMOCore.plugin.configuration.getSimpleMessage("no-class-skill").send((Player) sender);
 				return true;
 			}
 

@@ -13,6 +13,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Consumer;
 
+import io.lumine.xikage.mythicmobs.utils.config.properties.PropertyConfiguration;
+import io.lumine.xikage.mythicmobs.utils.plugin.LuminePlugin;
 import net.Indyuce.mmocore.MMOCore;
 import net.Indyuce.mmocore.api.ConfigFile;
 import net.Indyuce.mmocore.api.player.PlayerData;
@@ -21,7 +23,7 @@ import net.Indyuce.mmocore.api.util.input.ChatInput;
 import net.Indyuce.mmocore.api.util.input.PlayerInput;
 import net.Indyuce.mmocore.api.util.input.PlayerInput.InputType;
 
-public class ConfigManager {
+public class ConfigManager extends PropertyConfiguration {
 
 	public boolean overrideVanillaExp, hotbarSwap;
 	public double expPartyBuff, regenPartyBuff;
@@ -40,8 +42,8 @@ public class ConfigManager {
 	 * is to update them based on the config except for the classes which are
 	 * already loaded based on the config
 	 */
-	public ConfigManager() {
-
+	public ConfigManager(LuminePlugin plugin) {
+		super(plugin);
 		// loadDefaultFile("recipes", "brewing.yml");
 		// loadDefaultFile("recipes", "furnace.yml");
 
@@ -179,4 +181,10 @@ public class ConfigManager {
 			return !message.isEmpty();
 		}
 	}
+
+	@Override
+	public void load() {}
+
+	@Override
+	public void unload() {}
 }

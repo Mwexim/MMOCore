@@ -72,7 +72,7 @@ public class Party {
 		// transfer ownership
 		if (owner.equals(data)) {
 			owner = members.get(0);
-			MMOCore.plugin.configManager.getSimpleMessage("transfer-party-ownership").send(owner.getPlayer());
+			MMOCore.plugin.configuration.getSimpleMessage("transfer-party-ownership").send(owner.getPlayer());
 		}
 	}
 

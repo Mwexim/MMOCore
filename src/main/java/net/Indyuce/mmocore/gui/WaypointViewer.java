@@ -179,23 +179,23 @@ public class WaypointViewer extends EditableInventory {
 
 				Waypoint waypoint = MMOCore.plugin.waypointManager.get(tag);
 				if (!playerData.hasWaypoint(waypoint)) {
-					MMOCore.plugin.configManager.getSimpleMessage("not-unlocked-waypoint").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("not-unlocked-waypoint").send(player);
 					return;
 				}
 
 				if (waypoint.equals(current)) {
-					MMOCore.plugin.configManager.getSimpleMessage("standing-on-waypoint").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("standing-on-waypoint").send(player);
 					return;
 				}
 
 				if (current == null && !waypoint.isDynamic()) {
-					MMOCore.plugin.configManager.getSimpleMessage("not-dynamic-waypoint").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("not-dynamic-waypoint").send(player);
 					return;
 				}
 
 				double left = waypoint.getStelliumCost() - playerData.getStellium();
 				if (left > 0) {
-					MMOCore.plugin.configManager.getSimpleMessage("not-enough-stellium", "more", decimal.format(left)).send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("not-enough-stellium", "more", decimal.format(left)).send(player);
 					return;
 				}
 

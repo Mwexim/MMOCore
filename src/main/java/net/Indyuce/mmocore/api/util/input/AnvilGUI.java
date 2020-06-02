@@ -23,7 +23,7 @@ public class AnvilGUI extends PlayerInput {
 
 		ItemStack paper = new ItemStack(Material.PAPER);
 		ItemMeta paperMeta = paper.getItemMeta();
-		paperMeta.setDisplayName(MMOCore.plugin.configManager.getSimpleMessage("player-input.anvil." + type.getLowerCaseName()).message());
+		paperMeta.setDisplayName(MMOCore.plugin.configuration.getSimpleMessage("player-input.anvil." + type.getLowerCaseName()).message());
 		paper.setItemMeta(paperMeta);
 
 		MMOLib.plugin.getNMS().handleInventoryCloseEvent(player);

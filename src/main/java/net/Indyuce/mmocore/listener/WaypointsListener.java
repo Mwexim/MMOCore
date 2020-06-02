@@ -28,7 +28,7 @@ public class WaypointsListener implements Listener {
 		if (!data.hasWaypoint(waypoint)) {
 			data.unlockWaypoint(waypoint);
 			new SmallParticleEffect(player, Particle.SPELL_WITCH);
-			MMOCore.plugin.configManager.getSimpleMessage("new-waypoint", "waypoint", waypoint.getName()).send(player);
+			MMOCore.plugin.configuration.getSimpleMessage("new-waypoint", "waypoint", waypoint.getName()).send(player);
 			player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1, 1.2f);
 			return;
 		}

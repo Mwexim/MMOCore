@@ -28,7 +28,7 @@ public class GuildListener implements Listener {
 		 * running it in a delayed task is recommended
 		 */
 		Bukkit.getScheduler().scheduleSyncDelayedTask(MMOCore.plugin, () -> {
-			SimpleMessage format = MMOCore.plugin.configManager.getSimpleMessage("guild-chat", "player", data.getPlayer().getName(), "tag", data.getGuild().getTag(), "message", event.getMessage().substring(MMOCore.plugin.dataProvider.getGuildManager().getConfig().getPrefix().length()));
+			SimpleMessage format = MMOCore.plugin.configuration.getSimpleMessage("guild-chat", "player", data.getPlayer().getName(), "tag", data.getGuild().getTag(), "message", event.getMessage().substring(MMOCore.plugin.dataProvider.getGuildManager().getConfig().getPrefix().length()));
 			GuildChatEvent called = new GuildChatEvent(data, format.message());
 			Bukkit.getPluginManager().callEvent(called);
 			if (!called.isCancelled())

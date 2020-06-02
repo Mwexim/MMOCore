@@ -40,14 +40,14 @@ public class EditableGuildCreation extends EditableInventory {
 				return;
 
 			if (item.getFunction().equals("create")) {
-				MMOCore.plugin.configManager.newPlayerInput(player, InputType.GUILD_CREATION_TAG, (input) -> {
+				MMOCore.plugin.configuration.newPlayerInput(player, InputType.GUILD_CREATION_TAG, (input) -> {
 					if(MMOCore.plugin.dataProvider.getGuildManager().getConfig().shouldUppercaseTags())
 						input = input.toUpperCase();
 						
 					if(check(player, input, MMOCore.plugin.dataProvider.getGuildManager().getConfig().getTagRules())) {
 						String tag = input;
 						
-						MMOCore.plugin.configManager.newPlayerInput(player, InputType.GUILD_CREATION_NAME, (name) -> {								
+						MMOCore.plugin.configuration.newPlayerInput(player, InputType.GUILD_CREATION_NAME, (name) -> {								
 							if(check(player, name, MMOCore.plugin.dataProvider.getGuildManager().getConfig().getNameRules())) {
 								MMOCore.plugin.dataProvider.getGuildManager().newRegisteredGuild(playerData.getUniqueId(), name, tag);
 								MMOCore.plugin.dataProvider.getGuildManager().getGuild(tag.toLowerCase()).addMember(playerData.getUniqueId());
@@ -80,13 +80,13 @@ public class EditableGuildCreation extends EditableInventory {
 				if(!MMOCore.plugin.dataProvider.getGuildManager().isRegistered(input))
 					return true;
 				else
-					reason = MMOCore.plugin.configManager.getSimpleMessage("guild-creation.reasons.already-taken").message();
+					reason = MMOCore.plugin.configuration.getSimpleMessage("guild-creation.reasons.already-taken").message();
 			else
-				reason = MMOCore.plugin.configManager.getSimpleMessage("guild-creation.reasons.invalid-characters").message();
+				reason = MMOCore.plugin.configuration.getSimpleMessage("guild-creation.reasons.invalid-characters").message();
 		else
-			reason = MMOCore.plugin.configManager.getSimpleMessage("guild-creation.reasons.invalid-length", "min", "" + rules.getMin(), "max", "" + rules.getMax()).message();
+			reason = MMOCore.plugin.configuration.getSimpleMessage("guild-creation.reasons.invalid-length", "min", "" + rules.getMin(), "max", "" + rules.getMax()).message();
 			
-		MMOCore.plugin.configManager.getSimpleMessage("guild-creation.failed", "reason", reason).send(player);
+		MMOCore.plugin.configuration.getSimpleMessage("guild-creation.failed", "reason", reason).send(player);
 		return false;
 	}
 }

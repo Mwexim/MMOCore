@@ -193,10 +193,10 @@ public class EditableGuildView extends EditableInventory {
 				 * Sound.ENTITY_VILLAGER_NO, 1, 1); return; }
 				 */
 
-				MMOCore.plugin.configManager.newPlayerInput(player, InputType.GUILD_INVITE, (input) -> {
+				MMOCore.plugin.configuration.newPlayerInput(player, InputType.GUILD_INVITE, (input) -> {
 					Player target = Bukkit.getPlayer(input);
 					if (target == null) {
-						MMOCore.plugin.configManager.getSimpleMessage("not-online-player", "player", input).send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("not-online-player", "player", input).send(player);
 						player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 						open();
 						return;
@@ -204,21 +204,21 @@ public class EditableGuildView extends EditableInventory {
 
 					long remaining = playerData.getGuild().getLastInvite(target) + 60 * 2 * 1000 - System.currentTimeMillis();
 					if (remaining > 0) {
-						MMOCore.plugin.configManager.getSimpleMessage("guild-invite-cooldown", "player", target.getName(), "cooldown", new DelayFormat().format(remaining)).send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("guild-invite-cooldown", "player", target.getName(), "cooldown", new DelayFormat().format(remaining)).send(player);
 						open();
 						return;
 					}
 
 					PlayerData targetData = PlayerData.get(target);
 					if (playerData.getGuild().getMembers().has(targetData.getUniqueId())) {
-						MMOCore.plugin.configManager.getSimpleMessage("already-in-guild", "player", target.getName()).send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("already-in-guild", "player", target.getName()).send(player);
 						player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 						open();
 						return;
 					}
 
 					playerData.getGuild().sendGuildInvite(playerData, targetData);
-					MMOCore.plugin.configManager.getSimpleMessage("sent-guild-invite", "player", target.getName()).send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("sent-guild-invite", "player", target.getName()).send(player);
 					player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 					open();
 				});
@@ -233,7 +233,7 @@ public class EditableGuildView extends EditableInventory {
 					return;
 
 				playerData.getGuild().removeMember(target.getUniqueId());
-				MMOCore.plugin.configManager.getSimpleMessage("kick-from-guild", "player", target.getName()).send(player);
+				MMOCore.plugin.configuration.getSimpleMessage("kick-from-guild", "player", target.getName()).send(player);
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 			}
 		}

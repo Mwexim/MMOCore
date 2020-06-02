@@ -135,15 +135,15 @@ public class EditablePartyView extends EditableInventory {
 			if (item.getFunction().equals("invite")) {
 
 				if (playerData.getParty().getMembers().count() >= max) {
-					MMOCore.plugin.configManager.getSimpleMessage("party-is-full").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("party-is-full").send(player);
 					player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 					return;
 				}
 
-				MMOCore.plugin.configManager.newPlayerInput(player, InputType.PARTY_INVITE, (input) -> {
+				MMOCore.plugin.configuration.newPlayerInput(player, InputType.PARTY_INVITE, (input) -> {
 					Player target = Bukkit.getPlayer(input);
 					if (target == null) {
-						MMOCore.plugin.configManager.getSimpleMessage("not-online-player", "player", input).send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("not-online-player", "player", input).send(player);
 						player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 						open();
 						return;
@@ -151,21 +151,21 @@ public class EditablePartyView extends EditableInventory {
 
 					long remaining = playerData.getParty().getLastInvite(target) + 60 * 2 * 1000 - System.currentTimeMillis();
 					if (remaining > 0) {
-						MMOCore.plugin.configManager.getSimpleMessage("party-invite-cooldown", "player", target.getName(), "cooldown", new DelayFormat().format(remaining)).send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("party-invite-cooldown", "player", target.getName(), "cooldown", new DelayFormat().format(remaining)).send(player);
 						open();
 						return;
 					}
 
 					PlayerData targetData = PlayerData.get(target);
 					if (playerData.getParty().getMembers().has(targetData)) {
-						MMOCore.plugin.configManager.getSimpleMessage("already-in-party", "player", target.getName()).send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("already-in-party", "player", target.getName()).send(player);
 						player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 						open();
 						return;
 					}
 
 					playerData.getParty().sendPartyInvite(playerData, targetData);
-					MMOCore.plugin.configManager.getSimpleMessage("sent-party-invite", "player", target.getName()).send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("sent-party-invite", "player", target.getName()).send(player);
 					player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 					open();
 				});
@@ -180,7 +180,7 @@ public class EditablePartyView extends EditableInventory {
 					return;
 
 				playerData.getParty().removeMember(PlayerData.get(target));
-				MMOCore.plugin.configManager.getSimpleMessage("kick-from-party", "player", target.getName()).send(player);
+				MMOCore.plugin.configuration.getSimpleMessage("kick-from-party", "player", target.getName()).send(player);
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 			}
 		}

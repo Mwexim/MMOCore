@@ -19,7 +19,7 @@ public class PlayerActionBar extends BukkitRunnable {
 	private final String format;
 	
 	public PlayerActionBar(ConfigurationSection config) {
-		digit = new DecimalFormat(config.getString("decimal"), MMOCore.plugin.configManager.formatSymbols);
+		digit = new DecimalFormat(config.getString("decimal"), MMOCore.plugin.configuration.formatSymbols);
 		ticks = config.getInt("ticks-to-update");
 		format = config.getString("format");
 		

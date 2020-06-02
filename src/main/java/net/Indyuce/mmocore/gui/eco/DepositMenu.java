@@ -63,7 +63,7 @@ public class DepositMenu extends PluginInventory {
 			event.getInventory().clear();
 			player.closeInventory();
 			player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
-			MMOCore.plugin.configManager.getSimpleMessage("deposit", "worth", "" + deposit).send(player);
+			MMOCore.plugin.configuration.getSimpleMessage("deposit", "worth", "" + deposit).send(player);
 			return;
 		}
 

@@ -44,7 +44,7 @@ public class InventoryManager {
 
 	public InventoryManager() {
 		list.forEach(inv -> {
-			MMOCore.plugin.configManager.loadDefaultFile("gui", inv.getId() + ".yml");
+			MMOCore.plugin.configuration.loadDefaultFile("gui", inv.getId() + ".yml");
 			try {
 				inv.reload(new ConfigFile("/gui", inv.getId()).getConfig());
 			} catch (IllegalArgumentException exception) {

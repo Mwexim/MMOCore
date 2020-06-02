@@ -42,7 +42,7 @@ public class RPGPlaceholders
 		else if (identifier.equals("level_percent")) {
 			PlayerData playerData = PlayerData.get(player);
 			double current = playerData.getExperience(), next = playerData.getLevelUpExperience();
-			return MMOCore.plugin.configManager.decimal.format(current / next * 100);
+			return MMOCore.plugin.configuration.decimal.format(current / next * 100);
 		}
 
 		else if (identifier.equals("combat"))
@@ -59,14 +59,14 @@ public class RPGPlaceholders
 			String name = identifier.substring(19).replace(" ", "-").replace("_", "-").toLowerCase();
 			Profession profession = MMOCore.plugin.professionManager.get(name);
 			double current = professions.getExperience(profession), next = professions.getLevelUpExperience(profession);
-			return MMOCore.plugin.configManager.decimal.format(current / next * 100);
+			return MMOCore.plugin.configuration.decimal.format(current / next * 100);
 		}
 
 		else if (identifier.startsWith("bound_")) {
 			int slot = Math.max(0, Integer.parseInt(identifier.substring(6)) - 1);
 			PlayerData playerData = PlayerData.get(player);
 			return playerData.hasSkillBound(slot) ? playerData.getBoundSkill(slot).getSkill().getName()
-					: MMOCore.plugin.configManager.noSkillBoundPlaceholder;
+					: MMOCore.plugin.configuration.noSkillBoundPlaceholder;
 		}
 		
 		else if (identifier.startsWith("profession_"))
@@ -99,7 +99,7 @@ public class RPGPlaceholders
 					.getAttribute(MMOCore.plugin.attributeManager.get(identifier.substring(10).toLowerCase().replace("_", "-"))));
 
 		else if (identifier.equals("mana"))
-			return MMOCore.plugin.configManager.decimal.format(PlayerData.get(player).getMana());
+			return MMOCore.plugin.configuration.decimal.format(PlayerData.get(player).getMana());
 
 		else if (identifier.equals("mana_bar")) {
 			PlayerData data = PlayerData.get(player);
@@ -107,15 +107,15 @@ public class RPGPlaceholders
 		}
 
 		else if (identifier.equals("stamina"))
-			return MMOCore.plugin.configManager.decimal.format(PlayerData.get(player).getStamina());
+			return MMOCore.plugin.configuration.decimal.format(PlayerData.get(player).getStamina());
 
 		else if (identifier.equals("stamina_bar")) {
 			String format = "";
 			PlayerData data = PlayerData.get(player);
 			double ratio = 20 * data.getStamina() / data.getStats().getStat(StatType.MAX_STAMINA);
 			for (double j = 1; j < 20; j++)
-				format += (ratio >= j ? MMOCore.plugin.configManager.staminaFull
-						: ratio >= j - .5 ? MMOCore.plugin.configManager.staminaHalf : MMOCore.plugin.configManager.staminaEmpty)
+				format += (ratio >= j ? MMOCore.plugin.configuration.staminaFull
+						: ratio >= j - .5 ? MMOCore.plugin.configuration.staminaHalf : MMOCore.plugin.configuration.staminaEmpty)
 						+ AltChar.listSquare;
 			return format;
 		}
@@ -126,7 +126,7 @@ public class RPGPlaceholders
 		}
 
 		else if (identifier.equals("stellium"))
-			return MMOCore.plugin.configManager.decimal.format(PlayerData.get(player).getStellium());
+			return MMOCore.plugin.configuration.decimal.format(PlayerData.get(player).getStellium());
 
 		else if (identifier.equals("stellium_bar")) {
 			String format = "";
@@ -145,7 +145,7 @@ public class RPGPlaceholders
 		else if (identifier.equals("quest_progress")) {
 			PlayerQuests data = PlayerData.get(player).getQuestData();
 			return data.hasCurrent()
-					? MMOCore.plugin.configManager.decimal
+					? MMOCore.plugin.configuration.decimal
 							.format((int) (double) data.getCurrent().getObjectiveNumber() / data.getCurrent().getQuest().getObjectives().size() * 100)
 					: "0";
 		}

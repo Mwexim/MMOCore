@@ -340,7 +340,7 @@ public class SkillList extends EditableInventory {
 						// unbind if there is a current spell.
 						if (event.getAction() == InventoryAction.PICKUP_HALF) {
 							if (!playerData.hasSkillBound(index)) {
-								MMOCore.plugin.configManager.getSimpleMessage("no-skill-bound").send(player);
+								MMOCore.plugin.configuration.getSimpleMessage("no-skill-bound").send(player);
 								player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 2);
 								return;
 							}
@@ -355,13 +355,13 @@ public class SkillList extends EditableInventory {
 							return;
 
 						if (selected.getSkill().isPassive()) {
-							MMOCore.plugin.configManager.getSimpleMessage("not-active-skill").send(player);
+							MMOCore.plugin.configuration.getSimpleMessage("not-active-skill").send(player);
 							player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 2);
 							return;
 						}
 
 						if (!playerData.hasSkillUnlocked(selected)) {
-							MMOCore.plugin.configManager.getSimpleMessage("not-unlocked-skill").send(player);
+							MMOCore.plugin.configuration.getSimpleMessage("not-unlocked-skill").send(player);
 							player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 2);
 							return;
 						}
@@ -378,26 +378,26 @@ public class SkillList extends EditableInventory {
 				 */
 			} else if (item.getFunction().equals("upgrade")) {
 				if (!playerData.hasSkillUnlocked(selected)) {
-					MMOCore.plugin.configManager.getSimpleMessage("not-unlocked-skill").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("not-unlocked-skill").send(player);
 					player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 2);
 					return;
 				}
 
 				if (playerData.getSkillPoints() < 1) {
-					MMOCore.plugin.configManager.getSimpleMessage("not-enough-skill-points").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("not-enough-skill-points").send(player);
 					player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 2);
 					return;
 				}
 
 				if (selected.hasMaxLevel() && playerData.getSkillLevel(selected.getSkill()) >= selected.getMaxLevel()) {
-					MMOCore.plugin.configManager.getSimpleMessage("skill-max-level-hit").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("skill-max-level-hit").send(player);
 					player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 2);
 					return;
 				}
 
 				playerData.giveSkillPoints(-1);
 				playerData.setSkillLevel(selected.getSkill(), playerData.getSkillLevel(selected.getSkill()) + 1);
-				MMOCore.plugin.configManager.getSimpleMessage("upgrade-skill", "skill", selected.getSkill().getName(), "level",
+				MMOCore.plugin.configuration.getSimpleMessage("upgrade-skill", "skill", selected.getSkill().getName(), "level",
 						"" + playerData.getSkillLevel(selected.getSkill())).send(player);
 				player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
 				open();

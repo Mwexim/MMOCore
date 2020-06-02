@@ -30,7 +30,7 @@ public class SpellCast implements Listener {
 		 * hotbar swap feature only if the player is sneaking while entering
 		 * skill casting mode
 		 */
-		if (player.isSneaking() && MMOCore.plugin.configManager.hotbarSwap) {
+		if (player.isSneaking() && MMOCore.plugin.configuration.hotbarSwap) {
 			player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_LEATHER, 1, 1);
 			for (int j = 0; j < 9; j++) {
 				ItemStack replaced = player.getInventory().getItem(j + 9 * 3);
@@ -49,10 +49,10 @@ public class SpellCast implements Listener {
 	public class SkillCasting extends BukkitRunnable implements Listener {
 		private final PlayerData playerData;
 
-		private final String ready = MMOCore.plugin.configManager.getSimpleMessage("casting.action-bar.ready").message();
-		private final String onCooldown = MMOCore.plugin.configManager.getSimpleMessage("casting.action-bar.on-cooldown").message();
-		private final String noMana = MMOCore.plugin.configManager.getSimpleMessage("casting.action-bar.no-mana").message();
-		private final String split = MMOCore.plugin.configManager.getSimpleMessage("casting.split").message();
+		private final String ready = MMOCore.plugin.configuration.getSimpleMessage("casting.action-bar.ready").message();
+		private final String onCooldown = MMOCore.plugin.configuration.getSimpleMessage("casting.action-bar.on-cooldown").message();
+		private final String noMana = MMOCore.plugin.configuration.getSimpleMessage("casting.action-bar.no-mana").message();
+		private final String split = MMOCore.plugin.configuration.getSimpleMessage("casting.split").message();
 
 		private int j;
 
@@ -94,7 +94,7 @@ public class SpellCast implements Listener {
 			Player player = event.getPlayer();
 			if (event.getPlayer().equals(playerData.getPlayer()) && !player.isSneaking()) {
 				player.playSound(player.getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 1, 2);
-				MMOCore.plugin.configManager.getSimpleMessage("casting.no-longer").send(playerData.getPlayer());
+				MMOCore.plugin.configuration.getSimpleMessage("casting.no-longer").send(playerData.getPlayer());
 				close();
 			}
 		}

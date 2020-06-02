@@ -194,36 +194,36 @@ public class EditableFriendList extends EditableInventory {
 
 				long remaining = playerData.getLastFriendRequest() + 60 * 2 * 1000 - System.currentTimeMillis();
 				if (remaining > 0) {
-					MMOCore.plugin.configManager.getSimpleMessage("friend-request-cooldown", "cooldown", new DelayFormat().format(remaining))
+					MMOCore.plugin.configuration.getSimpleMessage("friend-request-cooldown", "cooldown", new DelayFormat().format(remaining))
 							.send(player);
 					return;
 				}
 
-				MMOCore.plugin.configManager.newPlayerInput(player, InputType.FRIEND_REQUEST, (input) -> {
+				MMOCore.plugin.configuration.newPlayerInput(player, InputType.FRIEND_REQUEST, (input) -> {
 					Player target = Bukkit.getPlayer(input);
 					if (target == null) {
-						MMOCore.plugin.configManager.getSimpleMessage("not-online-player", "player", input).send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("not-online-player", "player", input).send(player);
 						player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 						open();
 						return;
 					}
 
 					if (playerData.hasFriend(target.getUniqueId())) {
-						MMOCore.plugin.configManager.getSimpleMessage("already-friends", "player", target.getName()).send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("already-friends", "player", target.getName()).send(player);
 						player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 						open();
 						return;
 					}
 
 					if (playerData.getUniqueId().equals(target.getUniqueId())) {
-						MMOCore.plugin.configManager.getSimpleMessage("cant-request-to-yourself").send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("cant-request-to-yourself").send(player);
 						player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
 						open();
 						return;
 					}
 
 					playerData.sendFriendRequest(PlayerData.get(target));
-					MMOCore.plugin.configManager.getSimpleMessage("sent-friend-request", "player", target.getName()).send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("sent-friend-request", "player", target.getName()).send(player);
 					player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 					open();
 				});

@@ -87,7 +87,7 @@ public class Guild {
 			// transfer ownership
 			if (owner.equals(uuid)) {
 				owner = members.get(0);
-				MMOCore.plugin.configManager.getSimpleMessage("transfer-guild-ownership").send(Bukkit.getPlayer(owner));
+				MMOCore.plugin.configuration.getSimpleMessage("transfer-guild-ownership").send(Bukkit.getPlayer(owner));
 			}
 		//}
 	}

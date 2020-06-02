@@ -258,7 +258,7 @@ public class PlayerData extends OfflinePlayerData {
 	}
 
 	public void refreshVanillaExp() {
-		if (MMOCore.plugin.configManager.overrideVanillaExp) {
+		if (MMOCore.plugin.configuration.overrideVanillaExp) {
 			player.setLevel(getLevel());
 			player.setExp(Math.max(0, Math.min(1, (float) experience / (float) getLevelUpExperience())));
 		}
@@ -393,13 +393,13 @@ public class PlayerData extends OfflinePlayerData {
 			public void run() {
 				if (player.getLocation().getBlockX() != x || player.getLocation().getBlockY() != y || player.getLocation().getBlockZ() != z) {
 					player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, .5f);
-					MMOCore.plugin.configManager.getSimpleMessage("warping-canceled").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("warping-canceled").send(player);
 					giveStellium(waypoint.getStelliumCost());
 					cancel();
 					return;
 				}
 
-				MMOCore.plugin.configManager.getSimpleMessage("warping-comencing", "left", "" + ((120 - t) / 20)).send(player);
+				MMOCore.plugin.configuration.getSimpleMessage("warping-comencing", "left", "" + ((120 - t) / 20)).send(player);
 				if (t++ >= 100) {
 					player.teleport(waypoint.getLocation());
 					player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 1, false, false));
@@ -436,7 +436,7 @@ public class PlayerData extends OfflinePlayerData {
 		if (MMOCore.plugin.getConfig().getBoolean("display-exp-holograms"))
 			if (loc != null && MMOCore.plugin.hologramSupport != null)
 				MMOCore.plugin.hologramSupport.displayIndicator(loc.add(.5, 1.5, .5),
-						MMOCore.plugin.configManager.getSimpleMessage("exp-hologram", "exp", "" + value).message(), getPlayer());
+						MMOCore.plugin.configuration.getSimpleMessage("exp-hologram", "exp", "" + value).message(), getPlayer());
 
 		value = MMOCore.plugin.boosterManager.calculateExp(null, value);
 		value *= 1 + getStats().getStat(StatType.ADDITIONAL_EXPERIENCE) / 100;
@@ -721,13 +721,13 @@ public class PlayerData extends OfflinePlayerData {
 		if (!cast.isSuccessful()) {
 			if (!skill.getSkill().isPassive()) {
 				if (cast.getCancelReason() == CancelReason.LOCKED)
-					MMOCore.plugin.configManager.getSimpleMessage("not-unlocked-skill").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("not-unlocked-skill").send(player);
 				
 				if (cast.getCancelReason() == CancelReason.MANA)
-					MMOCore.plugin.configManager.getSimpleMessage("casting.no-mana").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("casting.no-mana").send(player);
 
 				if (cast.getCancelReason() == CancelReason.COOLDOWN)
-					MMOCore.plugin.configManager.getSimpleMessage("casting.on-cooldown").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("casting.on-cooldown").send(player);
 			}
 
 			return cast;

@@ -51,7 +51,7 @@ public class LootChest {
 	}
 
 	public boolean shouldExpire() {
-		return System.currentTimeMillis() - date > MMOCore.plugin.configManager.lootChestExpireTime;
+		return System.currentTimeMillis() - date > MMOCore.plugin.configuration.lootChestExpireTime;
 	}
 
 	public void unregister(boolean player) {

@@ -130,7 +130,7 @@ public class PlayerProfessions {
 		if (MMOCore.plugin.getConfig().getBoolean("display-exp-holograms"))
 			if (loc != null && MMOCore.plugin.hologramSupport != null)
 				MMOCore.plugin.hologramSupport.displayIndicator(loc.add(.5, 1.5, .5),
-						MMOCore.plugin.configManager.getSimpleMessage("exp-hologram", "exp", "" + value).message(), playerData.getPlayer());
+						MMOCore.plugin.configuration.getSimpleMessage("exp-hologram", "exp", "" + value).message(), playerData.getPlayer());
 
 		int needed, exp, level, oldLevel = getLevel(profession);
 
@@ -165,7 +165,7 @@ public class PlayerProfessions {
 		int chars = (int) ((double) exp / needed * 20);
 		for (int j = 0; j < 20; j++)
 			bar += (j == chars ? "" + ChatColor.WHITE + ChatColor.BOLD : "") + "|";
-		MMOCore.plugin.configManager.getSimpleMessage("exp-notification", "profession", profession.getName(), "progress", bar, "ratio",
-				MMOCore.plugin.configManager.decimal.format((double) exp / needed * 100)).send(playerData.getPlayer());
+		MMOCore.plugin.configuration.getSimpleMessage("exp-notification", "profession", profession.getName(), "progress", bar, "ratio",
+				MMOCore.plugin.configuration.decimal.format((double) exp / needed * 100)).send(playerData.getPlayer());
 	}
 }

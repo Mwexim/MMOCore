@@ -4,8 +4,8 @@ main: net.Indyuce.mmocore.MMOCore
 author: Indyuce
 description: ${project.description}
 loadbefore: [MMOItems]
-depend: [MMOLib]
-softdepend: [Vault,MythicMobs,PlaceholderAPI]
+depend: [MMOLib,MythicMobs]
+softdepend: [Vault,PlaceholderAPI]
 api-version: 1.13
 commands:
     mmocore:

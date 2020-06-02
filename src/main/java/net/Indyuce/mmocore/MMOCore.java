@@ -12,6 +12,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import io.lumine.xikage.mythicmobs.utils.plugin.LuminePlugin;
+import lombok.Getter;
 import net.Indyuce.mmocore.api.ConfigFile;
 import net.Indyuce.mmocore.api.PlayerActionBar;
 import net.Indyuce.mmocore.api.loot.LootChest;
@@ -96,10 +98,11 @@ import net.Indyuce.mmocore.manager.social.RequestManager;
 import net.mmogroup.mmolib.comp.Metrics;
 import net.mmogroup.mmolib.version.SpigotPlugin;
 
-public class MMOCore extends JavaPlugin {
+public class MMOCore extends LuminePlugin {
+	
 	public static MMOCore plugin;
 
-	public ConfigManager configManager;
+	@Getter public ConfigManager configuration;
 	public WaypointManager waypointManager;
 	public RestrictionManager restrictionManager;
 	public RequestManager requestManager;
@@ -134,7 +137,8 @@ public class MMOCore extends JavaPlugin {
 
 	public final MMOLoadManager loadManager = new MMOLoadManager();
 
-	public void onLoad() {
+	@Override
+	public void load() {
 		plugin = this;
 
 		/*
@@ -153,7 +157,8 @@ public class MMOCore extends JavaPlugin {
 			loadManager.registerLoader(new MythicMobsMMOLoader());
 	}
 
-	public void onEnable() {
+	@Override
+	public void enable() {
 
 		new SpigotPlugin(70575, this).checkForUpdate();
 		new Metrics(this);
@@ -259,7 +264,7 @@ public class MMOCore extends JavaPlugin {
 		if (getConfig().getBoolean("debug"))
 			new DebugMode();
 
-		if (configManager.overrideVanillaExp = getConfig().getBoolean("override-vanilla-exp"))
+		if (configuration.overrideVanillaExp = getConfig().getBoolean("override-vanilla-exp"))
 			Bukkit.getPluginManager().registerEvents(new VanillaExperienceOverride(), this);
 
 		if (getConfig().getBoolean("health-scale.enabled"))
@@ -351,7 +356,8 @@ public class MMOCore extends JavaPlugin {
 		}
 	}
 
-	public void onDisable() {
+	@Override
+	public void disable() {
 		for (PlayerData data : PlayerData.getAll()) {
 			data.getQuestData().resetBossBar();
 			dataProvider.getDataManager().saveData(data);
@@ -366,7 +372,7 @@ public class MMOCore extends JavaPlugin {
 	}
 
 	public void reloadPlugin() {
-		configManager = new ConfigManager();
+		configuration = new ConfigManager(this);
 
 		skillManager.reload();
 

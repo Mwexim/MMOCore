@@ -75,7 +75,7 @@ public class LinearValue {
 	}
 
 	public String getDisplay(int level) {
-		return MMOCore.plugin.configManager.decimals.format(calculate(level));
+		return MMOCore.plugin.configuration.decimals.format(calculate(level));
 	}
 
 	public double calculate(int level) {

@@ -38,7 +38,7 @@ public class Withdraw implements Listener {
 			return;
 
 		withdrawing.add(player.getUniqueId());
-		MMOCore.plugin.configManager.getSimpleMessage("withdrawing").send(player);
+		MMOCore.plugin.configuration.getSimpleMessage("withdrawing").send(player);
 		Bukkit.getPluginManager().registerEvents(this, MMOCore.plugin);
 		Bukkit.getScheduler().runTaskLater(MMOCore.plugin, () -> close(), 20 * 20);
 	}
@@ -60,7 +60,7 @@ public class Withdraw implements Listener {
 		if (!event.getPlayer().equals(player))
 			return;
 
-		MMOCore.plugin.configManager.getSimpleMessage("withdraw-cancel").send(player);
+		MMOCore.plugin.configuration.getSimpleMessage("withdraw-cancel").send(player);
 		close();
 	}
 
@@ -75,13 +75,13 @@ public class Withdraw implements Listener {
 		try {
 			worth = Integer.parseInt(event.getMessage());
 		} catch (Exception e) {
-			MMOCore.plugin.configManager.getSimpleMessage("wrong-number", "arg", event.getMessage()).send(player);
+			MMOCore.plugin.configuration.getSimpleMessage("wrong-number", "arg", event.getMessage()).send(player);
 			return;
 		}
 
 		int left = (int) (MMOCore.plugin.economy.getEconomy().getBalance(player) - worth);
 		if (left < 0) {
-			MMOCore.plugin.configManager.getSimpleMessage("not-enough-money", "left", "" + -left).send(player);
+			MMOCore.plugin.configuration.getSimpleMessage("not-enough-money", "left", "" + -left).send(player);
 			return;
 		}
 
@@ -91,7 +91,7 @@ public class Withdraw implements Listener {
 			MMOCore.plugin.economy.getEconomy().withdrawPlayer(player, worth);
 			withdrawAlgorythm(worth);
 			player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-			MMOCore.plugin.configManager.getSimpleMessage("withdrew", "worth", "" + worth).send(player);
+			MMOCore.plugin.configuration.getSimpleMessage("withdrew", "worth", "" + worth).send(player);
 		});
 	}
 

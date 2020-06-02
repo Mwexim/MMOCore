@@ -27,8 +27,8 @@ public class FriendRequest extends Request {
 		getCreator().setLastFriendRequest(0);
 		getCreator().addFriend(target.getUniqueId());
 		target.addFriend(getCreator().getUniqueId());
-		MMOCore.plugin.configManager.getSimpleMessage("now-friends", "player", target.getPlayer().getName()).send(getCreator().getPlayer());
-		MMOCore.plugin.configManager.getSimpleMessage("now-friends", "player", getCreator().getPlayer().getName()).send(target.getPlayer());
+		MMOCore.plugin.configuration.getSimpleMessage("now-friends", "player", target.getPlayer().getName()).send(getCreator().getPlayer());
+		MMOCore.plugin.configuration.getSimpleMessage("now-friends", "player", getCreator().getPlayer().getName()).send(target.getPlayer());
 		MMOCore.plugin.requestManager.unregisterRequest(getUniqueId());
 	}
 }

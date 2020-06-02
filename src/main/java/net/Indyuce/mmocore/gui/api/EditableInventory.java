@@ -25,7 +25,7 @@ public abstract class EditableInventory {
 	 */
 	private final Set<InventoryItem> items = new LinkedHashSet<>();
 
-	protected static final DecimalFormat decimal = MMOCore.plugin.configManager.decimal;
+	protected static final DecimalFormat decimal = MMOCore.plugin.configuration.decimal;
 
 	public EditableInventory(String id) {
 		this.id = id;

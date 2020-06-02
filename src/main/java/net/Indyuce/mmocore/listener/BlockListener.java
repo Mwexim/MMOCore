@@ -70,7 +70,7 @@ public class BlockListener implements Listener {
 		}
 
 		if (!perms.canMine(info.getBlock())) {
-			MMOCore.plugin.configManager.getSimpleMessage("cannot-break").send(player);
+			MMOCore.plugin.configuration.getSimpleMessage("cannot-break").send(player);
 			event.setCancelled(true);
 			return;
 		}

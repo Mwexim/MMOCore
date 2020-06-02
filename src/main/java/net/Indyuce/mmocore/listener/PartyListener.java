@@ -17,7 +17,7 @@ public class PartyListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void a(AsyncPlayerChatEvent event) {
-		if (!event.getMessage().startsWith(MMOCore.plugin.configManager.partyChatPrefix))
+		if (!event.getMessage().startsWith(MMOCore.plugin.configuration.partyChatPrefix))
 			return;
 
 		PlayerData data = PlayerData.get(event.getPlayer());
@@ -30,8 +30,8 @@ public class PartyListener implements Listener {
 		 * running it in a delayed task is recommended
 		 */
 		Bukkit.getScheduler().scheduleSyncDelayedTask(MMOCore.plugin, () -> {
-			SimpleMessage format = MMOCore.plugin.configManager.getSimpleMessage("party-chat", "player", data.getPlayer().getName(), "message",
-					event.getMessage().substring(MMOCore.plugin.configManager.partyChatPrefix.length()));
+			SimpleMessage format = MMOCore.plugin.configuration.getSimpleMessage("party-chat", "player", data.getPlayer().getName(), "message",
+					event.getMessage().substring(MMOCore.plugin.configuration.partyChatPrefix.length()));
 			PartyChatEvent called = new PartyChatEvent(data, format.message());
 			Bukkit.getPluginManager().callEvent(called);
 			if (!called.isCancelled())

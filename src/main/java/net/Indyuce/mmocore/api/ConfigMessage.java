@@ -14,7 +14,7 @@ public class ConfigMessage {
 	private final List<String> messages;
 
 	public ConfigMessage(String key) {
-		messages = MMOCore.plugin.configManager.getMessage(key);
+		messages = MMOCore.plugin.configuration.getMessage(key);
 	}
 
 	public ConfigMessage addPlaceholders(String... placeholders) {

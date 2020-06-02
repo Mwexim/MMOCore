@@ -245,7 +245,7 @@ public class QuestViewer extends EditableInventory {
 						if (event.getAction() == InventoryAction.PICKUP_HALF) {
 							playerData.getQuestData().start(null);
 							player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
-							MMOCore.plugin.configManager.getSimpleMessage("cancel-quest").send(player);
+							MMOCore.plugin.configuration.getSimpleMessage("cancel-quest").send(player);
 							open();
 						}
 						return;
@@ -255,7 +255,7 @@ public class QuestViewer extends EditableInventory {
 					 * the player cannot start a new quest if he is already
 					 * doing one.
 					 */
-					MMOCore.plugin.configManager.getSimpleMessage("already-on-quest").send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("already-on-quest").send(player);
 					return;
 				}
 
@@ -264,13 +264,13 @@ public class QuestViewer extends EditableInventory {
 				 */
 				int level;
 				if (playerData.getLevel() < (level = quest.getLevelRestriction(null))) {
-					MMOCore.plugin.configManager.getSimpleMessage("quest-level-restriction", "level", "Lvl", "count", "" + level).send(player);
+					MMOCore.plugin.configuration.getSimpleMessage("quest-level-restriction", "level", "Lvl", "count", "" + level).send(player);
 					return;
 				}
 
 				for (Profession profession : quest.getLevelRestrictions())
 					if (playerData.getCollectionSkills().getLevel(profession) < (level = quest.getLevelRestriction(profession))) {
-						MMOCore.plugin.configManager
+						MMOCore.plugin.configuration
 								.getSimpleMessage("quest-level-restriction", "level", profession.getName() + " Lvl", "count", "" + level)
 								.send(player);
 						return;
@@ -283,7 +283,7 @@ public class QuestViewer extends EditableInventory {
 					 * start it again.
 					 */
 					if (!quest.isRedoable()) {
-						MMOCore.plugin.configManager.getSimpleMessage("cant-redo-quest").send(player);
+						MMOCore.plugin.configuration.getSimpleMessage("cant-redo-quest").send(player);
 						return;
 					}
 
@@ -291,7 +291,7 @@ public class QuestViewer extends EditableInventory {
 					*
 					*/
 					if (!playerData.getQuestData().checkCooldownAvailability(quest)) {
-						MMOCore.plugin.configManager
+						MMOCore.plugin.configuration
 								.getSimpleMessage("quest-cooldown", "delay", new DelayFormat(2).format(playerData.getQuestData().getDelayFeft(quest)))
 								.send(player);
 						return;
@@ -301,7 +301,7 @@ public class QuestViewer extends EditableInventory {
 				/*
 				 * eventually start a new quest.
 				 */
-				MMOCore.plugin.configManager.getSimpleMessage("start-quest", "quest", quest.getName()).send(player);
+				MMOCore.plugin.configuration.getSimpleMessage("start-quest", "quest", quest.getName()).send(player);
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 				playerData.getQuestData().start(quest);
 				open();

@@ -23,7 +23,7 @@ public class Warp extends Skill {
 		addModifier("mana", new LinearValue(8, 3));
 		addModifier("range", new LinearValue(16, 1, 0, 100));
 	}
-
+ 
 	@Override
 	public SkillResult whenCast(PlayerData data, SkillInfo skill) {
 		WarpCast cast = new WarpCast(data, skill);

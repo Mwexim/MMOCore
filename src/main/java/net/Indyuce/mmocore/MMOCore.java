@@ -203,7 +203,7 @@ public class MMOCore extends LuminePlugin {
 			Bukkit.getServer().getPluginManager().registerEvents(new MythicMobsDrops(), this);
 			MMOCore.plugin.getLogger().log(Level.INFO, "Hooked onto MythicMobs");
 		}
-
+ 
 		/*
 		 * resource regeneration. must check if entity is dead otherwise regen
 		 * will make the 'respawn' button glitched plus HURT entity effect bug

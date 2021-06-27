@@ -32,6 +32,7 @@ public class MultipleLevelUpEventTrigger implements EventTriggerHandler {
 	                    DecimalFormat f = new DecimalFormat("#");
 	                    if (event.hasProfession()) {
 	                        processTrigger(player, profess, "level-up-multiple-" + event.getProfession().getId().toLowerCase() + "-" + f.format(multiple));
+							return;
 	                    } else {
 	                        processTrigger(player, profess, "level-up-multiple-" + f.format(multiple));
 	                    }
